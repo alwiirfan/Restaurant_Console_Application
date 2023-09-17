@@ -1,5 +1,6 @@
 package submission.project.core.models.repositories.repositoryImpl;
 
+import submission.project.core.models.entities.Cabang;
 import submission.project.core.models.entities.Produk;
 import submission.project.core.models.entities.Transaksi;
 import submission.project.core.models.entities.enums.TipeTransaksi;
@@ -49,15 +50,16 @@ public class TransaksiRepositoryImpl implements TransaksiRepository {
                             updateProdukStatement.executeUpdate();
                         }
 
-                        String sqlInsertTransaksi = "INSERT INTO transaksi (no_struk, id_produk, tipe_transaksi, jumlah, total_penjualan, tanggal_transaksi) VALUES (?, ?, ?, ?, ?, ?)";
+                        String sqlInsertTransaksi = "INSERT INTO transaksi (no_struk, id_produk, id_cabang, tipe_transaksi, jumlah, total_penjualan, tanggal_transaksi) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                         try (PreparedStatement insertTransaksiStatement = connection.prepareStatement(sqlInsertTransaksi)) {
                             insertTransaksiStatement.setString(1, UUID.randomUUID().toString());
                             insertTransaksiStatement.setString(2, transaksi.getIdProduk());
-                            insertTransaksiStatement.setString(3, transaksi.getTipeTransaksi().toString());
-                            insertTransaksiStatement.setInt(4, transaksi.getJumlahProduk());
-                            insertTransaksiStatement.setDouble(5, totalPenjualan);
-                            insertTransaksiStatement.setDate(6, new Date(transaksi.getTanggalTransaksi().getTime()));
+                            insertTransaksiStatement.setString(3, transaksi.getIdCabang());
+                            insertTransaksiStatement.setString(4, transaksi.getTipeTransaksi().toString());
+                            insertTransaksiStatement.setInt(5, transaksi.getJumlahProduk());
+                            insertTransaksiStatement.setDouble(6, totalPenjualan);
+                            insertTransaksiStatement.setDate(7, new Date(transaksi.getTanggalTransaksi().getTime()));
                             insertTransaksiStatement.executeUpdate();
                         }
 
@@ -87,6 +89,7 @@ public class TransaksiRepositoryImpl implements TransaksiRepository {
                 Transaksi transaksi = new Transaksi();
                 transaksi.setNoStruk(resultSet.getString("no_struk"));
                 transaksi.setIdProduk(resultSet.getString("id_produk"));
+                transaksi.setIdCabang(resultSet.getString("id_cabang"));
 
                 // mengambil tipe transaksi
                 String tipeTransaksiStr = resultSet.getString("tipe_transaksi");
@@ -96,6 +99,51 @@ public class TransaksiRepositoryImpl implements TransaksiRepository {
                 transaksi.setJumlahProduk(resultSet.getInt("jumlah"));
                 transaksi.setTotalPenjualan(resultSet.getDouble("total_penjualan"));
                 transaksi.setTanggalTransaksi(resultSet.getDate("tanggal_transaksi"));
+                transaksiList.add(transaksi);
+            }
+            resultSet.close();
+        }
+
+        connection.close();
+        return transaksiList;
+    }
+
+    @Override
+    public List<Transaksi> getAllTransaksiInfo() throws SQLException {
+        Connection connection = ConnectionUtil.getDataSource().getConnection();
+        List<Transaksi> transaksiList = new ArrayList<>();
+
+        String sql = """
+        SELECT t.tanggal_transaksi, t.no_struk, t.tipe_transaksi, t.jumlah, t.total_penjualan, c.id AS cabang_id, c.nama_cabang, p.id AS produk_id, p.nama_produk, p.harga FROM transaksi AS t
+        JOIN cabang AS c ON t.id_cabang = c.id
+        JOIN produk AS p ON t.id_produk = p.id
+        """;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Transaksi transaksi = new Transaksi();
+                transaksi.setTanggalTransaksi(resultSet.getDate("tanggal_transaksi"));
+                transaksi.setNoStruk(resultSet.getString("no_struk"));
+
+                String tipeTransaksiStr = resultSet.getString("tipe_transaksi");
+                TipeTransaksi tipeTransaksi = TipeTransaksi.valueOf(tipeTransaksiStr);
+                transaksi.setTipeTransaksi(tipeTransaksi);
+
+                transaksi.setJumlahProduk(resultSet.getInt("jumlah"));
+                transaksi.setTotalPenjualan(resultSet.getDouble("total_penjualan"));
+
+                Produk produk = new Produk();
+                produk.setId(resultSet.getString("produk_id"));
+                produk.setNamaProduk(resultSet.getString("nama_produk"));
+                produk.setHarga(resultSet.getDouble("harga"));
+                transaksi.setProduk(produk);
+
+                Cabang cabang = new Cabang();
+                cabang.setId(resultSet.getString("cabang_id"));
+                cabang.setNamaCabang(resultSet.getString("nama_cabang"));
+                transaksi.setCabang(cabang);
+
                 transaksiList.add(transaksi);
             }
             resultSet.close();

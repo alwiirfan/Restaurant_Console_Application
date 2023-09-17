@@ -22,7 +22,7 @@ public class CustomerUtil {
 
         ProdukServiceImpl produkService = new ProdukServiceImpl(produkRepository);
         CabangServiceImpl cabangService = new CabangServiceImpl(cabangRepository);
-        TransaksiServiceImpl transaksiService = new TransaksiServiceImpl(transaksiRepository, produkRepository);
+        TransaksiServiceImpl transaksiService = new TransaksiServiceImpl(transaksiRepository, produkRepository, cabangRepository);
 
         ProdukController produkController = new ProdukController(produkService);
         CabangController cabangController = new CabangController(cabangService);

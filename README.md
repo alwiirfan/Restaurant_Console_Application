@@ -55,9 +55,10 @@ Masukkan Harga: 5000
 
 ## Cara untuk melakukan Transaksi
 
-* Setelah melakukan eksekusi menggunakan perintah: `java -jar target/restaurant-1.0-SNAPSHOT-jar-with-dependencies.jar`. Lalu pilih `TRANSAKSi`.
-* Lanjutkan dengan memilih `Tambah Transaksi`.
+* Setelah melakukan eksekusi menggunakan perintah: `java -jar target/restaurant-1.0-SNAPSHOT-jar-with-dependencies.jar`. Lalu pilih `TRANSAKSI`.
+* Lanjutkan dengan memilih `Lakukan Transaksi`.
 * Pastikan anda melakukan `get all` pada `PRODUK` untuk melihat `PRODUK` yang sudah ada.
+* Pastikan anda melakukan `get all` pada `CABANG` untuk melihat `CABANG` yang sudah ada.
 * Lalu isi data yang di perlukan.
 
 #### Contoh:
@@ -65,6 +66,7 @@ Masukkan Harga: 5000
 ```
 Pilih Tipe Transaksi: EAT_IN/TAKE_AWAY/ONLINE
 Masukkan ID Produk: 01-001
+Masukkan ID Cabang: 0203
 Masukkan Jumlah Produk: 4
 ```
 

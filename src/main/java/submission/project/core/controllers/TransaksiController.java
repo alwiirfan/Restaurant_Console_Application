@@ -38,12 +38,8 @@ public class TransaksiController {
             scanner.nextLine();
 
             if (pilihanTipeTransaksi == 4){
-                System.out.println("\n");
-
-                boolean shouldExist = HandleExit.promptToExit(scanner);
-                if (!shouldExist){
-                    System.exit(0);
-                }
+                exit = true;
+                continue;
             }
 
             TipeTransaksi tipeTransaksi = null;
@@ -60,12 +56,16 @@ public class TransaksiController {
             System.out.print("Masukkan ID Produk: ");
             String idProduk = scanner.nextLine();
 
+            System.out.print("Masukkan ID Cabang: ");
+            String idCabang = scanner.nextLine();
+
             System.out.print("Masukkan Jumlah Produk: ");
             int jumlahProduk = scanner.nextInt();
 
             Transaksi transaksi = new Transaksi();
             transaksi.setNoStruk(noStruk);
             transaksi.setIdProduk(idProduk);
+            transaksi.setIdCabang(idCabang);
             transaksi.setTipeTransaksi(tipeTransaksi);
             transaksi.setJumlahProduk(jumlahProduk);
             transaksi.setTanggalTransaksi(new Date());
@@ -80,6 +80,7 @@ public class TransaksiController {
                 System.out.println("Data Transaksi: ");
                 System.out.println("No Struk: " + transaksi.getNoStruk());
                 System.out.println("ID Produk: " + transaksi.getIdProduk());
+                System.out.println("ID Cabang: " + transaksi.getIdCabang());
                 System.out.println("Tipe Transaksi: " + transaksi.getTipeTransaksi());
                 System.out.println("Jumlah Produk: " + transaksi.getJumlahProduk());
                 System.out.println("Total Harga Produk: " + transaksi.getTotalPenjualan());
@@ -103,10 +104,42 @@ public class TransaksiController {
                     System.out.println(" ________________________________________________ ");
                     System.out.println("No Struk: " + transaksi.getNoStruk());
                     System.out.println("ID Produk: " + transaksi.getIdProduk());
+                    System.out.println("ID Cabang: " + transaksi.getIdCabang());
                     System.out.println("Tipe Transaksi: " + transaksi.getTipeTransaksi());
                     System.out.println("Jumlah Produk: " + transaksi.getJumlahProduk());
                     System.out.println("Total Harga Produk: " + transaksi.getTotalPenjualan());
                     System.out.println("Tanggal Transaksi: " + transaksi.getTanggalTransaksi());
+                    System.out.println(" ________________________________________________ ");
+                }
+        );
+
+        System.out.println("\n");
+
+        boolean shouldExist = HandleExit.promptToExit(scanner);
+        if (!shouldExist){
+            System.exit(0);
+        }
+
+    }
+
+    public void getAllTransaksiInfo() throws SQLException{
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Daftar Informasi Transaksi: ");
+        transaksiService.getAllTransaksiInfo().forEach(
+                transaksi -> {
+                    System.out.println(" ________________________________________________ ");
+                    System.out.println("Tanggal: " + transaksi.getTanggalTransaksi());
+                    System.out.println("Bill: " + transaksi.getNoStruk());
+                    System.out.println("Branch No: " + transaksi.getCabang().getId());
+                    System.out.println("Branch Name: " + transaksi.getCabang().getNamaCabang());
+                    System.out.println("Type: " + transaksi.getTipeTransaksi());
+                    System.out.println("Product Code: " + transaksi.getProduk().getId());
+                    System.out.println("Product Name: " + transaksi.getProduk().getNamaProduk());
+                    System.out.println("Qty: " + transaksi.getJumlahProduk());
+                    System.out.println("Price: " + transaksi.getProduk().getHarga());
+                    System.out.println("Total: " + transaksi.getTotalPenjualan());
                     System.out.println(" ________________________________________________ ");
                 }
         );

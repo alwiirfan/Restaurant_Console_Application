@@ -95,8 +95,9 @@ public class CustomerController {
             System.out.println("|          Menu Transaksi :         |");
             System.out.println("| 1. Lakukan Transaksi              |");
             System.out.println("| 2. Semua Transaksi                |");
-            System.out.println("| 3. Semua Rekap By Tipe Transaksi  |");
-            System.out.println("| 4. Kembali                        |");
+            System.out.println("| 3. Informasi Semua Transaksi      |");
+            System.out.println("| 4. Semua Rekap By Tipe Transaksi  |");
+            System.out.println("| 5. Kembali                        |");
             System.out.println(" ___________________________________ ");
 
             System.out.println("Pilih Angka (1-5)");
@@ -109,11 +110,13 @@ public class CustomerController {
             switch (preferred) {
                 case 1 -> transaksiController.tambahTransaksi();
                 case 2 -> transaksiController.semuaTransaksi();
-                case 3 -> transaksiController.getAllRekapByTipeTransaksi();
-                case 4 -> exit = true;
+                case 3 -> transaksiController.getAllTransaksiInfo();
+                case 4 -> transaksiController.getAllRekapByTipeTransaksi();
+                case 5 -> exit = true;
                 default -> System.out.println("Pilihan tidak valid.");
             }
         }
+        System.out.println("Debug: Menu ditampilkan.");
 
     }
 }

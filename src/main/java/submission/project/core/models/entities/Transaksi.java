@@ -6,8 +6,28 @@ import java.util.Date;
 
 public class Transaksi {
 
+    private Produk produk;
+    private Cabang cabang;
+
+    public Produk getProduk() {
+        return produk;
+    }
+
+    public void setProduk(Produk produk) {
+        this.produk = produk;
+    }
+
+    public Cabang getCabang() {
+        return cabang;
+    }
+
+    public void setCabang(Cabang cabang) {
+        this.cabang = cabang;
+    }
+
     private String noStruk;
     private String idProduk;
+    private String idCabang;
     private TipeTransaksi tipeTransaksi;
     private int jumlahProduk;
     private double totalPenjualan;
@@ -16,9 +36,10 @@ public class Transaksi {
     public Transaksi() {
     }
 
-    public Transaksi(String noStruk, String idProduk, TipeTransaksi tipeTransaksi,int jumlahProduk , double totalPenjualan, Date tanggalTransaksi) {
+    public Transaksi(String noStruk, String idProduk, String idCabang, TipeTransaksi tipeTransaksi,int jumlahProduk , double totalPenjualan, Date tanggalTransaksi) {
         this.noStruk = noStruk;
         this.idProduk = idProduk;
+        this.idCabang = idCabang;
         this.tipeTransaksi = tipeTransaksi;
         this.jumlahProduk = jumlahProduk;
         this.totalPenjualan = totalPenjualan;
@@ -39,6 +60,14 @@ public class Transaksi {
 
     public void setIdProduk(String idProduk) {
         this.idProduk = idProduk;
+    }
+
+    public String getIdCabang() {
+        return idCabang;
+    }
+
+    public void setIdCabang(String idCabang) {
+        this.idCabang = idCabang;
     }
 
     public TipeTransaksi getTipeTransaksi() {

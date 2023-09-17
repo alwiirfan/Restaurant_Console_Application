@@ -10,6 +10,8 @@ public interface TransaksiRepository {
 
     void add(Transaksi transaksi) throws SQLException;
     List<Transaksi> getAllTransaksi() throws SQLException;
+    List<Transaksi> getAllTransaksiInfo() throws SQLException;
 
     Map<String, Double> rekapByTipeTransaksi() throws SQLException;
+
 }
