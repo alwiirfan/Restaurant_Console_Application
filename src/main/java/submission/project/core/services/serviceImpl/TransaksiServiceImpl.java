@@ -80,4 +80,9 @@ public class TransaksiServiceImpl implements TransaksiService {
     public Map<String, Double> rekapByTipeTransaksi() throws SQLException {
         return transaksiRepository.rekapByTipeTransaksi();
     }
+
+    @Override
+    public void hapusSemuaTransaksi() throws SQLException {
+        transaksiRepository.hapusSemuaTransakasi();
+    }
 }

@@ -1,9 +1,4 @@
-# Final Application Java Database
-
-## Panduan menggunakan Git
-
-* [mengunduh repository ke dalam komputer](https://git.enigmacamp.com/enigma-20/moh-alwi-irfani/challenge-javadb.git)
-
+# Final Console Application 
 ## Mengunduh Repository
 
 Unduh repository ke dalam komputer menggunakan `git clone`. Url repository dapat di lihat pada repository yang di inginkan.

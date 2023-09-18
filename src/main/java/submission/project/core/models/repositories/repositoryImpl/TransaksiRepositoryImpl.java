@@ -172,4 +172,16 @@ public class TransaksiRepositoryImpl implements TransaksiRepository {
         return rekap;
     }
 
+    @Override
+    public void hapusSemuaTransakasi() throws SQLException {
+        Connection connection = ConnectionUtil.getDataSource().getConnection();
+        String sql = "DELETE FROM transaksi";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.executeUpdate();
+            System.out.println("Semua transaksi berhasil dihapus");
+        }
+
+        connection.close();
+    }
 }

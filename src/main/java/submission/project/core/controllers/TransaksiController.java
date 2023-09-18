@@ -153,71 +153,6 @@ public class TransaksiController {
 
     }
 
-//    public void rekapByTipeTransaksi(){
-//
-//        Scanner scanner = new Scanner(System.in);
-//        boolean exit = false;
-//
-//        while (!exit){
-//
-//            System.out.println(" ________________________________ ");
-//            System.out.println("|     Pilih Tipe Transaksi:      |");
-//            System.out.println("| 1. EAT_IN                      |");
-//            System.out.println("| 2. TAKE_AWAY                   |");
-//            System.out.println("| 3. ONLINE                      |");
-//            System.out.println("| 4. EXIT                        |");
-//            System.out.println(" ________________________________ ");
-//            System.out.print("Masukkan Pilihan (1-4): ");
-//            int pilihanTipeTransaksi = scanner.nextInt();
-//            scanner.nextLine();
-//
-//            if (pilihanTipeTransaksi == 4){
-//                System.out.println("\n");
-//
-//                boolean shouldExist = HandleExit.promptToExit(scanner);
-//                if (!shouldExist){
-//                    System.exit(0);
-//                }
-//            }
-//
-//            TipeTransaksi tipeTransaksi = null;
-//
-//            switch (pilihanTipeTransaksi){
-//                case 1 -> tipeTransaksi = TipeTransaksi.EAT_IN;
-//                case 2 -> tipeTransaksi = TipeTransaksi.TAKE_AWAY;
-//                case 3 -> tipeTransaksi = TipeTransaksi.ONLINE;
-//                default -> System.out.println("Pilihan Tipe Transaksi tidak valid");
-//            }
-//
-//            if (tipeTransaksi != null){
-//                try {
-//                    Map<String, Double> rekap = transaksiService.rekapByTipeTransaksi();
-//                    if (rekap.isEmpty()){
-//                        System.out.println("Belum ada data rekap total penjualan untuk tipe transaksi " + tipeTransaksi);
-//                    } else {
-//                        System.out.println("Rekap total penjualan untuk tipe transaksi " + tipeTransaksi + ":");
-//                        for (Map.Entry<String, Double> entry : rekap.entrySet()){
-//                            String tipeTransaksiKey = entry.getKey();
-//                            Double totalPenjualan = entry.getValue();
-//                            System.out.println(tipeTransaksiKey + ": " + totalPenjualan);
-//                        }
-//                    }
-//                } catch (SQLException exception){
-//                    System.out.println("Gagal mengambil rekap total penjualan: " + exception.getMessage());
-//                }
-//            }
-//
-//        }
-//
-//        System.out.println("\n");
-//
-//        boolean shouldExist = HandleExit.promptToExit(scanner);
-//        if (!shouldExist){
-//            System.exit(0);
-//        }
-//
-//    }
-
     public void getAllRekapByTipeTransaksi(){
 
         Scanner scanner = new Scanner(System.in);
@@ -247,5 +182,14 @@ public class TransaksiController {
             System.exit(0);
         }
 
+    }
+
+    void hapusSemuaTransaksi(){
+        try {
+            transaksiService.hapusSemuaTransaksi();
+            System.out.println("Semua transaksi berhasi dihapus");
+        } catch (SQLException exception){
+            System.out.println("Gagal menghapus semua transaksi: " + exception.getMessage());
+        }
     }
 }

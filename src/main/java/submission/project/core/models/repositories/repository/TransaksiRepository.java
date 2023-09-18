@@ -13,5 +13,5 @@ public interface TransaksiRepository {
     List<Transaksi> getAllTransaksiInfo() throws SQLException;
 
     Map<String, Double> rekapByTipeTransaksi() throws SQLException;
-
+    void hapusSemuaTransakasi() throws SQLException;
 }
