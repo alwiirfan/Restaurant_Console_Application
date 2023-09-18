@@ -34,8 +34,14 @@ public class TransaksiController {
             System.out.println("| 4. EXIT                        |");
             System.out.println(" ________________________________ ");
             System.out.print("Masukkan Pilihan (1-4): ");
-            int pilihanTipeTransaksi = scanner.nextInt();
-            scanner.nextLine();
+            int pilihanTipeTransaksi;
+
+            try {
+                pilihanTipeTransaksi = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException exception){
+                System.out.println("Pilihan tipe transaksi tidak valid. Masukkan angka 1-4");
+                continue;
+            }
 
             if (pilihanTipeTransaksi == 4){
                 exit = true;
@@ -60,7 +66,16 @@ public class TransaksiController {
             String idCabang = scanner.nextLine();
 
             System.out.print("Masukkan Jumlah Produk: ");
-            int jumlahProduk = scanner.nextInt();
+            int jumlahProduk;
+
+            try {
+                jumlahProduk = Integer.parseInt(scanner.nextLine());
+                if (jumlahProduk <= 0){
+                    throw new IllegalArgumentException("Jumlah produk harus lebih dari 0");
+                }
+            } catch (NumberFormatException exception){
+                throw new IllegalArgumentException("Jumlah produk harus berupa angka.");
+            }
 
             Transaksi transaksi = new Transaksi();
             transaksi.setNoStruk(noStruk);
