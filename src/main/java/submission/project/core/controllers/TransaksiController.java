@@ -187,6 +187,7 @@ public class TransaksiController {
     void hapusSemuaTransaksi(){
         try {
             transaksiService.hapusSemuaTransaksi();
+            System.out.println("Berhasil menghapus semua transaksi");
         } catch (SQLException exception){
             System.out.println("Gagal menghapus semua transaksi: " + exception.getMessage());
         }

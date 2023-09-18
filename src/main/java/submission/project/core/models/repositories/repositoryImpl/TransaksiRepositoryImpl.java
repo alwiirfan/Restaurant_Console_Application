@@ -179,7 +179,6 @@ public class TransaksiRepositoryImpl implements TransaksiRepository {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-            System.out.println("Semua transaksi berhasil dihapus");
         }
 
         connection.close();
