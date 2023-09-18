@@ -65,4 +65,5 @@ Masukkan ID Cabang: 0203
 Masukkan Jumlah Produk: 4
 ```
 
+* Pastikan ID `PRODUK` dan ID `CABANG` yang anda masukkan sudah ada di dalam TABLE `PRODUK` dan `CABANG`.
 
