@@ -46,8 +46,6 @@ public class TransaksiServiceImpl implements TransaksiService {
             double totalPenjualan = hargaProduk * jumlahProduk;
 
             transaksi.setTotalPenjualan(totalPenjualan);
-
-            transaksiRepository.add(transaksi);
         } else {
             throw new SQLException("Produk tidak di temukan.");
         }
